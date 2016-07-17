@@ -12,5 +12,13 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require bootstrap
+//= require bootstrap-sprockets
 //= require turbolinks
 //= require_tree .
+$(document).ready(function() {
+    $("#question_type").change(function() {
+        console.log($("#question_type").val());
+        console.log("Ceva");
+    });
+});
