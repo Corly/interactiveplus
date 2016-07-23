@@ -155,6 +155,31 @@ input {
     height: auto !important;
 }
 
+.add_fields {
+    width: auto; 
+    margin-bottom: 20px;
+}
+
+.remove_fields {
+    width: auto; 
+    margin-bottom: 20px;
+}
+
+.question_type_single_answer {
+    width: auto;
+    margin: 3px 3px 3px 0;
+}
+
+.question_type_multiple_answer {
+    width: auto;
+    margin: 3px 3px 3px 10px;
+}
+
+.question_type_free_answer {
+    width: auto;
+    margin: 3px 3px 3px 10px;
+}
+
 #error_explanations {
     color: red;
     ul {
@@ -174,3 +199,4 @@ input {
     font-size: 1em;
     line-height: 1.6em;
 }
+

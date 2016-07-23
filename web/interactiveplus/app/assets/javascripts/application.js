@@ -17,8 +17,8 @@
 //= require turbolinks
 //= require_tree .
 $(document).ready(function() {
-    $("#question_type").change(function() {
-        console.log($("#question_type").val());
+	console.log("Loading done\n");
+    $("#question_type_single_answer").change(function() {
         console.log("Ceva");
     });
 });

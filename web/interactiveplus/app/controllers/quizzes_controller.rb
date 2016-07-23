@@ -15,6 +15,9 @@ class QuizzesController < ApplicationController
   # GET /quizzes/new
   def new
     @quiz = Quiz.new
+    @question_id = 0
+    @answer_id = 0
+    @question_to_answer = {}
   end
 
   # GET /quizzes/1/edit

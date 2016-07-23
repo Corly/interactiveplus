@@ -1,18 +1,16 @@
 <fieldset>
     <%= f.label :content, "Question" %><br />
     <%= f.text_area :content %><br />
-    <div style="display=inline">
-        <%= radio_button_tag(:question_type, "single_answer") %>
-        <%= label_tag(:question_type_single_answer, "Single answer") %>
-        <%= radio_button_tag(:question_type, "multiple_answer") %>
-        <%= label_tag(:question_type_multiple_answer, "Multiple answers") %>
-        <%= radio_button_tag(:question_type, "free_answer") %>
-        <%= label_tag(:question_type_free_answer, "Free answer") %>
-    </div>
+    <%= radio_button_tag(:question_type, "single_answer_#{@question_id}", false, :class => "question_type_single_answer") %> 
+    <%= label_tag(:"question_type", "Single answer", :value => "single_answer_#{@question_id}") %>
+    <%= radio_button_tag(:question_type, "multiple_answer_#{@question_id}", false, :class => "question_type_multiple_answer") %>
+    <%= label_tag(:question_type, "Multiple answers", :value => "multiple_answer_#{@question_id}") %>
+    <%= radio_button_tag(:question_type, "free_answer_#{@question_id}", false, :class => "question_type_free_answer") %> 
+    <%= label_tag(:question_type, "Free answer", :value => "free_answer_#{@question_id}") %><br />
     <%= f.hidden_field :_destroy %>
-    <%= link_to "remove", '#', class: "remove_fields" %>
+    <%= button_to "Remove Question", '#', class: "remove_fields btn btn-danger", :method => :get %>
     <%= f.fields_for :answers do |builder| %>
         <%= render 'answer_fields', f: builder %>
     <% end %>
-    <%= link_to_add_fields "Add Answer", f, :answers %>
+    <%= link_to_add_answers "Add Answer", f, :answers %>
 </fieldset>
