@@ -10,8 +10,6 @@ module ApplicationHelper
     end
 
     def link_to_add_questions(name, f, association)
-        @question_id += 1
-        @question_to_answers[@question_id] = []
         new_object= f.object.send(association).klass.new
         id = new_object.object_id
         fields = f.fields_for(association, new_object, child_index: id) do |builder|
@@ -26,6 +24,6 @@ module ApplicationHelper
         fields = f.fields_for(association, new_object, child_index: id) do |builder|
             render(association.to_s.singularize + "_fields", f: builder)
         end
-        button_to(name, '#', class: "add_fields btn btn-primary disabled", data: {id: id, fields: fields.gsub("\n", "")}, :method => :get)
+        button_to(name, '#', class: "add_fields btn btn-primary disabled", :id => "answer_button", data: {id: id, fields: fields.gsub("\n", "")}, :method => :get)
     end
 end

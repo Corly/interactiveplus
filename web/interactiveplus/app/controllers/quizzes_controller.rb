@@ -17,7 +17,7 @@ class QuizzesController < ApplicationController
     @quiz = Quiz.new
     @question_id = 0
     @answer_id = 0
-    @question_to_answer = {}
+    @question_to_answers = Hash.new
   end
 
   # GET /quizzes/1/edit

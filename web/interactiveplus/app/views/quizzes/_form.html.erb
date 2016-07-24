@@ -19,7 +19,6 @@
 
   <%= f.fields_for :questions do |builder| %>
       <%= render 'question_fields', f: builder %>
-      <% @question_id += 1 %>
   <% end %>
   <%= link_to_add_questions "Add Question", f, :questions %>
 

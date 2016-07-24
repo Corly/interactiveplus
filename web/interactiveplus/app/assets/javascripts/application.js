@@ -16,9 +16,27 @@
 //= require bootstrap-sprockets
 //= require turbolinks
 //= require_tree .
-$(document).ready(function() {
-	console.log("Loading done\n");
-    $("#question_type_single_answer").change(function() {
-        console.log("Ceva");
-    });
+$( document ).ready(function() {
+ $('input[id^="question_type_single_answer_"]').on('click', function() {  
+    console.log("Hello!");
+ });
 });
+
+function enable_answer_button(id_answer_button) {
+	console.log(id_answer_button);
+	$(id_answer_button).removeClass('disabled');
+}
+
+function disable_answer_button(id_answer_button) {
+	console.log(id_answer_button);
+	$(id_answer_button).addClass('disabled');
+}
+
+var counter = 0;
+
+function give_me_counter() {
+	var v = counter;
+	counter += 1;
+	return v;
+}
+
