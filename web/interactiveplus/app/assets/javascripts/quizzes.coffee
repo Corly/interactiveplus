@@ -7,7 +7,7 @@ jQuery ->
         $(this).closest('fieldset').hide()
         event.preventDefault()
 
-    $('form').on 'click', '.add_fields', (event) ->
+    $('form').on 'click', '.add_fields_question', (event) ->
         time = new Date().getTime()
         regexp = new RegExp($(this).data('id'), 'g')
         $(this).before($(this).data('fields').replace(regexp, time))
@@ -35,4 +35,10 @@ jQuery ->
         $('#question_type_multiple_answer').attr('id', 'question_type_multiple_answer_' + counter)
         $('#question_type_free_answer').attr('id', 'question_type_free_answer_' + counter)
 
+        event.preventDefault()
+
+    $('form').on 'click', '.add_fields_answer', (event) ->
+        time = new Date().getTime()
+        regexp = new RegExp($(this).data('id'), 'g')
+        $(this).before($(this).data('fields').replace(regexp, time))
         event.preventDefault()

@@ -155,7 +155,12 @@ input {
     height: auto !important;
 }
 
-.add_fields {
+.add_fields_question {
+    width: auto; 
+    margin-bottom: 20px;
+}
+
+.add_fields_answer {
     width: auto; 
     margin-bottom: 20px;
 }
@@ -180,6 +185,11 @@ input {
     margin: 3px 3px 3px 10px;
 }
 
+.answer_checkbox {
+    margin-right: 30px;
+    width: auto;
+}
+
 #error_explanations {
     color: red;
     ul {
@@ -199,4 +209,3 @@ input {
     font-size: 1em;
     line-height: 1.6em;
 }
-

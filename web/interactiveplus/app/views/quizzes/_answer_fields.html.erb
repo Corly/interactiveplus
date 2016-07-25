@@ -1,6 +1,8 @@
 <fieldset>
     <%= f.label :content, "Answer" %>
     <%= f.text_field :content %>
+    <%= check_box_tag(:answer_type, 'Correct Answer', false, class: "answer_checkbox checkbox-inline") %>
+    <%= label_tag(:answer_type, 'Correct Answer') %><br />
     <%= f.hidden_field :_destroy %>
     <%= link_to "Remove Answer", '#', class: "remove_fields btn btn-danger" %>
 </fieldset>
