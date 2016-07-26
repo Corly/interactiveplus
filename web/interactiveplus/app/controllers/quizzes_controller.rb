@@ -1,6 +1,8 @@
 class QuizzesController < ApplicationController
   before_action :set_quiz, only: [:show, :edit, :update, :destroy]
 
+  
+
   # GET /quizzes
   # GET /quizzes.json
   def index
@@ -15,19 +17,20 @@ class QuizzesController < ApplicationController
   # GET /quizzes/new
   def new
     @quiz = Quiz.new
-    @question_id = 0
-    @answer_id = 0
-    @question_to_answers = Hash.new
+    @quiz.questions.build
   end
 
   # GET /quizzes/1/edit
   def edit
+    @quiz.questions.build
   end
 
   # POST /quizzes
   # POST /quizzes.json
   def create
     @quiz = Quiz.new(quiz_params)
+
+    puts @quiz.questions
 
     respond_to do |format|
       if @quiz.save
@@ -72,6 +75,6 @@ class QuizzesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def quiz_params
-      params.require(:quiz).permit(:name)
-    end
+      params.require(:quiz).permit(:name, questions_attributes: [ :id, :content, :_destroy])
+  end
 end

@@ -15,7 +15,7 @@ module ApplicationHelper
         fields = f.fields_for(association, new_object, child_index: id) do |builder|
             render(association.to_s.singularize + "_fields", f: builder)
         end
-        button_to(name, '#', class: "add_fields_question btn btn-primary", data: {id: id, fields: fields.gsub("\n", "")}, :method => :get)
+        link_to(name, '#', class: "add_fields_question btn btn-primary", data: {id: id, fields: fields.gsub("\n", "")})
     end
 
     def link_to_add_answers(name, f, association)
@@ -24,6 +24,6 @@ module ApplicationHelper
         fields = f.fields_for(association, new_object, child_index: id) do |builder|
             render(association.to_s.singularize + "_fields", f: builder)
         end
-        button_to(name, '#', class: "add_fields_answer btn btn-primary disabled", :id => "answer_button", data: {id: id, fields: fields.gsub("\n", "")}, :method => :get)
+        link_to(name, '#', class: "add_fields_answer btn btn-primary", :id => "answer_button", data: {id: id, fields: fields.gsub("\n", "")})
     end
 end
