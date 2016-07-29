@@ -1,6 +1,16 @@
 <fieldset>
     <%= f.label :content, "Question" %><br />
     <%= f.text_area :content %><br />
+    <%= f.radio_button(:question_type, "choosing_answer", :class => "question_type_choosing_answer", :onclick => "hide_free_answer_message(this);") %> 
+    <%= f.label :question_type_choosing_answer, "Choosing answer" %>
+    <%= f.radio_button(:question_type, "free_answer", :class => "question_type_free_answer", :onclick => "show_free_answer_message(this);") %> 
+    <%= f.label :question_type_free_answer, "Free answer" %><br />
+    <div class="alert" id="_alert">
+        <strong>Free answer!</strong> None of the answers below will be added.
+    </div>
+    <script>
+        $('#_alert').hide().attr("id", "alert");
+    </script>
     <%= f.hidden_field :_destroy %>
     <%= link_to "Remove Question", '#', class: "remove_fields btn btn-danger" %> <br />
     <%= f.fields_for :answers do |builder| %>

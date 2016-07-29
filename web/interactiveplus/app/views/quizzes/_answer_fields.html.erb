@@ -1,6 +1,8 @@
 <fieldset>
     <%= f.label :content, "Answer" %>
-    <%= f.text_field :content %>
+    <%= f.text_field :content %><br />
+    <%= f.radio_button :answer_type, "correct", :class => "answer_checkbox" %>
+    <%= f.label :answer_type_correct, "Correct Answer" %><br />
     <%= f.hidden_field :_destroy %>
     <%= link_to "Remove Answer", '#', class: "remove_fields btn btn-danger" %>
 </fieldset>

@@ -22,13 +22,18 @@ class QuizzesController < ApplicationController
 
   # GET /quizzes/1/edit
   def edit
-    @quiz.questions.build
   end
 
   # POST /quizzes
   # POST /quizzes.json
   def create
     @quiz = Quiz.new(quiz_params)
+
+    @quiz.questions.each do |q|
+      if q.question_type == "free_answer"
+        q.answers = []
+      end
+    end
 
     puts @quiz.questions
 
@@ -75,6 +80,7 @@ class QuizzesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def quiz_params
-      params.require(:quiz).permit(:name, questions_attributes: [ :id, :content, :_destroy])
+      params.require(:quiz).permit(:name, questions_attributes: [ :id, :content, :question_type, :_destroy,
+                                                                answers_attributes: [:id, :content, :answer_type, :_destroy]])
   end
 end
