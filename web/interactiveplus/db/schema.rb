@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160717024457) do
+ActiveRecord::Schema.define(version: 20160730201316) do
 
   create_table "answers", force: :cascade do |t|
     t.text     "content"
@@ -43,9 +43,14 @@ ActiveRecord::Schema.define(version: 20160717024457) do
     t.string   "name"
     t.string   "email"
     t.integer  "role"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.string   "password_digest"
+    t.integer  "quiz_id"
+    t.string   "remember_digest"
+    t.boolean  "admin",           default: false
   end
+
+  add_index "users", ["quiz_id"], name: "index_users_on_quiz_id"
 
 end
