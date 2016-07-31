@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
                         uniqueness: { case_sensitive: false }
     has_secure_password
     validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
-    has_many :quizzez
+    has_many :quizzes, dependent: :destroy
 
     class << self
         def digest(string)
@@ -20,6 +20,10 @@ class User < ActiveRecord::Base
         def new_token
             SecureRandom.urlsafe_base64
         end
+    end
+
+    def feed
+        Quiz.where("user_id = ?", id)
     end
 
     def remember

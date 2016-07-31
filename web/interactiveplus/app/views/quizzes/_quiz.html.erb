@@ -1,0 +1,9 @@
+<li id="quiz-<%= quiz.id %>">
+  <span class="user"><%= link_to quiz.user.name, quiz.user %></span>
+  <span class="name"><%= link_to quiz.name, user_quiz_path(current_user, quiz) %></span>
+  <% if current_user?(quiz.user) %>
+    <%= link_to "delete", user_quiz_path(current_user, quiz), method: :delete,
+                                       data: { confirm: "You sure?" } %>
+    <%= link_to "edit", edit_user_quiz_path(current_user, quiz), method: :get %>
+  <% end %>
+</li>

@@ -1,7 +1,7 @@
 class QuizzesController < ApplicationController
-  before_action :set_quiz, only: [:show, :edit, :update, :destroy]
-
-  
+  before_action :logged_in_user, only: [:create, :destroy]
+  before_action :correct_user,   only: :destroy
+  before_action :set_quiz, only: [:show, :edit, :update, :destroy] 
 
   # GET /quizzes
   # GET /quizzes.json
@@ -12,22 +12,27 @@ class QuizzesController < ApplicationController
   # GET /quizzes/1
   # GET /quizzes/1.json
   def show
+    @quiz = Quiz.find(params[:id])
+    @user = User.find(params[:user_id])
   end
 
   # GET /quizzes/new
   def new
-    @quiz = Quiz.new
+    @user = User.find(params[:user_id])
+    @quiz = @user.quizzes.build
     @quiz.questions.build
   end
 
   # GET /quizzes/1/edit
   def edit
+    @quiz = Quiz.find(params[:id])
+    @user = User.find(params[:user_id])
   end
 
   # POST /quizzes
   # POST /quizzes.json
   def create
-    @quiz = Quiz.new(quiz_params)
+    @quiz = current_user.quizzes.build(quiz_params)
 
     @quiz.questions.each do |q|
       if q.question_type == "free_answer"
@@ -39,7 +44,7 @@ class QuizzesController < ApplicationController
 
     respond_to do |format|
       if @quiz.save
-        format.html { redirect_to @quiz, notice: 'Quiz was successfully created.' }
+        format.html { redirect_to current_user, notice: 'Quiz was successfully created.' }
         format.json { render :show, status: :created, location: @quiz }
       else
         format.html { render :new }
@@ -66,16 +71,19 @@ class QuizzesController < ApplicationController
   # DELETE /quizzes/1.json
   def destroy
     @quiz.destroy
-    respond_to do |format|
-      format.html { redirect_to quizzes_url, notice: 'Quiz was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    flash[:success] = "Micropost deleted"
+    redirect_to request.referrer || root_url
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_quiz
       @quiz = Quiz.find(params[:id])
+    end
+
+    def correct_user
+      @quiz = current_user.quizzes.find_by(id: params[:id])
+      redirect_to root_url if @quiz.nil?
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
