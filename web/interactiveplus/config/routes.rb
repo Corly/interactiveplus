@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :given_answers
+  resources :results
   get 'sessions/new'
 
   root                'static_pages#home'
@@ -9,6 +11,9 @@ Rails.application.routes.draw do
   get '/login',       to: 'sessions#new'
   post '/login',      to: 'sessions#create'
   delete '/logout',   to: 'sessions#destroy'
+  get '/publish/:quiz_id', to: 'quizzes#publish', as: 'publish'
+  get '/take_quiz/:quiz_string', to: 'quizzes#take_quiz', as: 'take_quiz'
+  get '/result/:link', to: 'results#info', as: 'info_result'
   resources :users do 
     resources :quizzes
   end

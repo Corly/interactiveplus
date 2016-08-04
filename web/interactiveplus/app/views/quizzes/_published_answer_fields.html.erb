@@ -1,0 +1,9 @@
+<fieldset>
+	&nbsp;
+	<%= character + "." %>
+	<%= f.object.content %>
+	<% unless f.object.answer_type.nil? %>
+		&nbsp;
+		<font color="green">Correct</font>
+	<% end %>
+</fieldset>

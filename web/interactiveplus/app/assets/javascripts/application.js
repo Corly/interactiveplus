@@ -63,3 +63,31 @@ $('.question_type_free_answer').each(function() {
         $(this).parent().children('.alert').show();
     });
 });
+
+function send_result(path, quiz_id, user_id, random_link) {
+    var data = { "result": {"quiz_id": quiz_id, "user_id": user_id}};
+    var answer_ids = [];
+    var free_answers_question_id = [];
+
+    $(".answer_checkbox").each(function() {
+        if ($(this).is(":checked")) {
+            var arr = $(this).attr('id').split('_');
+            answer_ids.push(arr[2]);
+        }
+    });
+
+    $(".free_answer").each(function() {
+        var arr = $(this).attr('id').split('_');
+        var obj = {};
+        obj[arr[2]] = $(this).val();
+        console.log(obj);
+        free_answers_question_id.push(obj);
+    });
+
+    data.answer_ids = answer_ids;
+    data.free_answers_question_id = free_answers_question_id;
+    data.random_link = random_link;
+
+    $.post(path, data);
+    window.location.replace('/result/' + random_link);
+}

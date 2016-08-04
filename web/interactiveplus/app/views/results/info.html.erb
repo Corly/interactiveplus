@@ -1,0 +1,10 @@
+<% provide(:title, "Your result") %>
+
+Congratulations!<br /><br /><br />
+
+Your results are:<br /><br />
+
+Number of right checked answers: <%= @result.number_of_correct_answers %><br \>
+Number of wrong checked answers: <%= @result.number_of_answers - @result.number_of_correct_answers %> <br />
+
+Number of free answers: <%= @result.number_of_free_answers %>

@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Number of answers:</strong>
+  <%= @result.number_of_answers %>
+</p>
+
+<p>
+  <strong>Number of correct answers:</strong>
+  <%= @result.number_of_correct_answers %>
+</p>
+
+<p>
+  <strong>Quiz:</strong>
+  <%= @result.quiz %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @result.user %>
+</p>
+
+<%= link_to 'Edit', edit_result_path(@result) %> |
+<%= link_to 'Back', results_path %>

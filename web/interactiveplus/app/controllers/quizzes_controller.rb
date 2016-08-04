@@ -75,6 +75,21 @@ class QuizzesController < ApplicationController
     redirect_to request.referrer || root_url
   end
 
+  def publish
+    @quiz = Quiz.find(params[:quiz_id])
+    @user = User.find(@quiz.user_id)
+
+    if @quiz.publish_string.nil?
+      url = SecureRandom.base64[0,5]
+      @quiz.update(:publish_string => url)
+    end
+  end
+
+  def take_quiz
+      @quiz = Quiz.find_by(publish_string: params[:quiz_string])
+      @user = User.find(@quiz.user_id)
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_quiz

@@ -1,0 +1,11 @@
+<fieldset>
+    <%= counter.to_s + "." %>
+    <%= f.object.content %>
+    <% if f.object.question_type == "free_answer" %>
+        <%= text_area(:free_answer, f.object.id, class: "free_answer") %>
+    <% else %>
+        <%= f.fields_for :answers do |builder| %>
+            <%= render 'take_quiz_answer_fields', f: builder %>
+        <% end %>
+    <% end %>
+</fieldset>

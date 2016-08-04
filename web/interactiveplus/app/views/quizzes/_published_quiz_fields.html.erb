@@ -12,17 +12,13 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+      <%= f.object.name %>
   </div>
 
-
+  <% counter = 1 %>
   <%= f.fields_for :questions do |builder| %>
-      <%= render 'question_fields', f: builder %>
+      <%= render 'published_question_fields', f: builder, counter: counter %>
+      <% counter = counter + 1 %>
   <% end %>
-  <%= link_to_add_questions "Add Question", f, :questions %>
 
-  <div class="actions">
-    <%= f.submit class: "btn btn-large btn-primary" %>
-  </div>
 <% end %>

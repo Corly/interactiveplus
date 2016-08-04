@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Correct answer:</strong>
+  <%= @given_answer.correct_answer %>
+</p>
+
+<p>
+  <strong>Free answer:</strong>
+  <%= @given_answer.free_answer %>
+</p>
+
+<p>
+  <strong>Question:</strong>
+  <%= @given_answer.question %>
+</p>
+
+<p>
+  <strong>Answer:</strong>
+  <%= @given_answer.answer %>
+</p>
+
+<p>
+  <strong>Result:</strong>
+  <%= @given_answer.result %>
+</p>
+
+<%= link_to 'Edit', edit_given_answer_path(@given_answer) %> |
+<%= link_to 'Back', given_answers_path %>

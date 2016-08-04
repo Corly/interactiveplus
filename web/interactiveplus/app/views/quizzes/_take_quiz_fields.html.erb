@@ -12,17 +12,17 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+      <%= f.object.name %>
   </div>
 
-
+  <% counter = 1 %>
   <%= f.fields_for :questions do |builder| %>
-      <%= render 'question_fields', f: builder %>
+      <%= render 'take_quiz_question_fields', f: builder, counter: counter %>
+      <% counter = counter + 1 %>
   <% end %>
-  <%= link_to_add_questions "Add Question", f, :questions %>
 
-  <div class="actions">
-    <%= f.submit class: "btn btn-large btn-primary" %>
-  </div>
+  <% random_link = SecureRandom.base64[0,5] %>
+
+  <%= link_to "Submit answers", 'javascript:;', :onclick => "send_result('#{results_path()}', '#{@quiz.id}', '#{current_user.id}', '#{random_link}')", class: "btn btn-primary" %>
+
 <% end %>

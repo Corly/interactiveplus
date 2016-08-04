@@ -1,0 +1,13 @@
+<fieldset>
+    <%= counter.to_s + "." %>
+    <%= f.object.content %>
+    <% if f.object.question_type == "free_answer" %>
+        <%= text_area(:free_answer, :question_type, disabled: true) %>
+    <% else %>
+        <% character = 'a' %>
+        <%= f.fields_for :answers do |builder| %>
+            <%= render 'published_answer_fields', f: builder, character: character %>
+            <% character = character.next %>
+        <% end %>
+    <% end %>
+</fieldset>

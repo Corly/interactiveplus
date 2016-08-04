@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160730232034) do
+ActiveRecord::Schema.define(version: 20160803064648) do
 
   create_table "answers", force: :cascade do |t|
     t.text     "content"
@@ -22,6 +22,20 @@ ActiveRecord::Schema.define(version: 20160730232034) do
   end
 
   add_index "answers", ["question_id"], name: "index_answers_on_question_id"
+
+  create_table "given_answers", force: :cascade do |t|
+    t.boolean  "correct_answer"
+    t.text     "free_answer"
+    t.integer  "question_id"
+    t.integer  "answer_id"
+    t.integer  "result_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "given_answers", ["answer_id"], name: "index_given_answers_on_answer_id"
+  add_index "given_answers", ["question_id"], name: "index_given_answers_on_question_id"
+  add_index "given_answers", ["result_id"], name: "index_given_answers_on_result_id"
 
   create_table "questions", force: :cascade do |t|
     t.text     "content"
@@ -35,12 +49,29 @@ ActiveRecord::Schema.define(version: 20160730232034) do
 
   create_table "quizzes", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.integer  "user_id"
+    t.string   "publish_string"
   end
 
   add_index "quizzes", ["user_id"], name: "index_quizzes_on_user_id"
+
+  create_table "results", force: :cascade do |t|
+    t.integer  "number_of_answers"
+    t.integer  "number_of_correct_answers"
+    t.integer  "quiz_id"
+    t.integer  "user_id"
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.integer  "number_of_questions"
+    t.integer  "number_of_free_answer_questions"
+    t.integer  "number_of_free_answers"
+    t.string   "link"
+  end
+
+  add_index "results", ["quiz_id"], name: "index_results_on_quiz_id"
+  add_index "results", ["user_id"], name: "index_results_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
