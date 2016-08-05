@@ -1,0 +1,26 @@
+<%= form_for [@user, @quiz] do |f| %>
+  <% if @quiz.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@quiz.errors.count, "error") %> prohibited this quiz from being saved:</h2>
+
+      <ul>
+      <% @quiz.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+      <%= f.object.name %>
+  </div>
+
+  <% counter = 1 %>
+  <%= f.fields_for :questions do |builder| %>
+      <%= render 'show_question_fields', f: builder, counter: counter %>
+      <% counter = counter + 1 %>
+  <% end %>
+
+  <%= link_to "Update", "#{show_results_path(@quiz.id)}", :onclick => "update_answers('/given_answers/')", class: "btn btn-primary" %>
+
+<% end %>

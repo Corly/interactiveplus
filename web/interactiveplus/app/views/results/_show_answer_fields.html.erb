@@ -1,0 +1,13 @@
+<fieldset>
+	&nbsp;
+	<%= character + "." %>
+	<%= f.object.content %>
+	<% if !f.object.answer_type.nil? && @answers.any?{|a| a.answer_id == f.object.id } %>
+		&nbsp;
+		<font color="green">Correct</font>
+	<% end %>
+	<% if f.object.answer_type.nil? && @answers.any?{|a| a.answer_id == f.object.id } %>
+		&nbsp;
+		<font color="red">Wrong</font>
+	<% end %>
+</fieldset>

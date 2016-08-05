@@ -1,0 +1,18 @@
+<fieldset>
+    <%= counter.to_s + "." %>
+    <%= f.object.content %>
+    <% if f.object.question_type == "free_answer" %>
+        <% answer = @answers.find{|a| a.question_id == f.object.id} %>
+        <p>Answer: <%= answer.free_answer %></p>
+        <%= radio_button_tag("value", "correct_#{answer.id}", answer.correct_answer.nil? ? false : answer.correct_answer, :class => "radio_button_correct") %>
+        <%= label_tag("value_correct_#{answer.id}", "Correct") %>
+        <%= radio_button_tag("value", "wrong_#{answer.id}", answer.correct_answer.nil? ? false : !answer.correct_answer, :class => "radio_button_wrong") %>
+        <%= label_tag("value_wrong_#{answer.id}", "Wrong") %>
+    <% else %>
+        <% character = 'a' %>
+        <%= f.fields_for :answers do |builder| %>
+            <%= render 'show_answer_fields', f: builder, character: character %>
+            <% character = character.next %>
+        <% end %>
+    <% end %>
+</fieldset>

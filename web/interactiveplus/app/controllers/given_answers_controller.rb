@@ -40,8 +40,25 @@ class GivenAnswersController < ApplicationController
   # PATCH/PUT /given_answers/1
   # PATCH/PUT /given_answers/1.json
   def update
+    @result = Result.find(@given_answer.result_id)
+    correctness = @given_answer.correct_answer
     respond_to do |format|
       if @given_answer.update(given_answer_params)
+        if correctness.nil?
+          if @given_answer.correct_answer
+            @result.number_of_correct_answers += 1
+          end
+        else
+          if correctness != @given_answer.correct_answer
+            if correctness && !@given_answer.correct_answer
+              @result.number_of_correct_answers -= 1
+            else
+              @result.number_of_correct_answers += 1
+            end
+          end
+        end
+        @result.save
+        
         format.html { redirect_to @given_answer, notice: 'Given answer was successfully updated.' }
         format.json { render :show, status: :ok, location: @given_answer }
       else

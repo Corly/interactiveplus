@@ -91,3 +91,32 @@ function send_result(path, quiz_id, user_id, random_link) {
     $.post(path, data);
     window.location.replace('/result/' + random_link);
 }
+
+function update_answers(path) {
+    var answer_ids_correct = [];
+    var answer_ids_wrong = [];
+
+    $(".radio_button_correct").each(function() {
+        if ($(this).is(":checked")) {
+            var arr = $(this).attr('id').split('_');
+            answer_ids_correct.push(arr[2]);
+        }
+    });
+
+    $(".radio_button_wrong").each(function() {
+        if ($(this).is(":checked")) {
+            var arr = $(this).attr('id').split('_');
+            answer_ids_wrong.push(arr[2]);
+        }
+    });
+
+    for (var i = 0; i < answer_ids_correct.length; i++) {
+       var data = { "given_answer": {"correct_answer" : true}};
+       $.post(path + answer_ids_correct[i], data); 
+    }
+
+    for (var i = 0; i < answer_ids_wrong.length; i++) {
+       var data = { "given_answer": {"correct_answer" : false}};
+       $.post(path + answer_ids_wrong[i], data); 
+    }
+}

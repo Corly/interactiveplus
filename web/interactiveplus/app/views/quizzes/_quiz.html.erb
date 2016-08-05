@@ -6,5 +6,6 @@
                                        data: { confirm: "You sure?" } %>
     <%= link_to "edit", edit_user_quiz_path(current_user, quiz), method: :get %>
     <%= link_to "publish", publish_path(quiz.id), method: :get %>
+    <%= link_to "results", show_results_path(quiz.id), method: :get %>
   <% end %>
 </li>

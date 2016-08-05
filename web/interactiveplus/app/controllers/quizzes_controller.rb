@@ -90,6 +90,12 @@ class QuizzesController < ApplicationController
       @user = User.find(@quiz.user_id)
   end
 
+  def show_results
+      @quiz = Quiz.find(params[:quiz_id])
+      @user = User.find(@quiz.user_id)
+      @results = @quiz.results.paginate(page: params[:page])
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_quiz

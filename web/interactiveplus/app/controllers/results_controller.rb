@@ -10,6 +10,10 @@ class ResultsController < ApplicationController
   # GET /results/1
   # GET /results/1.json
   def show
+    @result = Result.find(params[:id])
+    @quiz = Quiz.find(@result.quiz_id)
+    @user = User.find(@result.user_id)
+    @answers = @result.given_answers
   end
 
   # GET /results/new
@@ -49,16 +53,9 @@ class ResultsController < ApplicationController
 
     answer_ids.each do |id|
       answer = Answer.find(id.to_i)
-      @given_answer = GivenAnswer.new()
-      @given_answer.answer_id = id.to_i
-      @given_answer.result_id = @result.id
       unless answer.answer_type.nil?
         number_of_correct_answers += 1
-        @given_answer.correct_answer = true
-      else
-        @given_answer.correct_answer = false
       end
-      @given_answer.save
     end
 
     @result.number_of_correct_answers = number_of_correct_answers
@@ -78,7 +75,33 @@ class ResultsController < ApplicationController
     end
 
     respond_to do |format|
-      if @result.save
+        if @result.save
+          number_of_correct_answers = 0
+          answer_ids.each do |id|
+          answer = Answer.find(id.to_i)
+          @given_answer = GivenAnswer.new()
+          @given_answer.answer_id = id.to_i
+          @given_answer.result_id = @result.id
+          unless answer.answer_type.nil?
+            number_of_correct_answers += 1
+            @given_answer.correct_answer = true
+          else
+            @given_answer.correct_answer = false
+          end
+          @given_answer.save
+        end
+
+        free_answers_question_id.each do |key1, element|
+          element.each do |key, value|
+            @given_answer = GivenAnswer.new()
+            @given_answer.result_id = @result.id
+            @given_answer.question_id = key.to_i
+            @given_answer.free_answer = value
+
+            @given_answer.save
+          end
+        end
+
         format.html { redirect_to @result, notice: 'Result was successfully created.' }
         format.json { render :show, status: :created, location: @result }
       else

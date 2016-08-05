@@ -1,24 +1,8 @@
-<p id="notice"><%= notice %></p>
+<% provide(:title, "Solved Quiz") %>
 
-<p>
-  <strong>Number of answers:</strong>
-  <%= @result.number_of_answers %>
-</p>
+<h1>Solved Quiz</h1>
+<% unless @user.nil? %>
+	<%= @user.name %>
+<% end %>
 
-<p>
-  <strong>Number of correct answers:</strong>
-  <%= @result.number_of_correct_answers %>
-</p>
-
-<p>
-  <strong>Quiz:</strong>
-  <%= @result.quiz %>
-</p>
-
-<p>
-  <strong>User:</strong>
-  <%= @result.user %>
-</p>
-
-<%= link_to 'Edit', edit_result_path(@result) %> |
-<%= link_to 'Back', results_path %>
+<%= render "show_quiz_fields" %>

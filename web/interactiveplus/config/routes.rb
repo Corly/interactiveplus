@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   get '/publish/:quiz_id', to: 'quizzes#publish', as: 'publish'
   get '/take_quiz/:quiz_string', to: 'quizzes#take_quiz', as: 'take_quiz'
   get '/result/:link', to: 'results#info', as: 'info_result'
+  get '/show_results/:quiz_id', to: 'quizzes#show_results', as: 'show_results'
+  post '/given_answers/:id', to: 'given_answers#update'
   resources :users do 
     resources :quizzes
   end
