@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160803064648) do
+ActiveRecord::Schema.define(version: 20160805153231) do
 
   create_table "answers", force: :cascade do |t|
     t.text     "content"
@@ -68,6 +68,7 @@ ActiveRecord::Schema.define(version: 20160803064648) do
     t.integer  "number_of_free_answer_questions"
     t.integer  "number_of_free_answers"
     t.string   "link"
+    t.integer  "total_number_of_correct_answers"
   end
 
   add_index "results", ["quiz_id"], name: "index_results_on_quiz_id"

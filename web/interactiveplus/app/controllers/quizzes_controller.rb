@@ -88,11 +88,20 @@ class QuizzesController < ApplicationController
   def take_quiz
       @quiz = Quiz.find_by(publish_string: params[:quiz_string])
       @user = User.find(@quiz.user_id)
+
+      @questions = @quiz.questions
+
+      respond_to do |format|
+        format.html
+        format.json { render json: {:quiz => @quiz,
+                                    :questions => @questions }}
+      end
   end
 
   def show_results
       @quiz = Quiz.find(params[:quiz_id])
       @user = User.find(@quiz.user_id)
+      @all_results = @quiz.results
       @results = @quiz.results.paginate(page: params[:page])
   end
 

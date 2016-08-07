@@ -6,4 +6,9 @@ class Question < ActiveRecord::Base
     def question_params
         params.require(:question).permit(:content, :answers, :answers_attributes, :quiz_id)
     end
+
+    def as_json(options={})
+    	{:content 		=> self.content,
+         :answers   => self.answers}
+    end
 end

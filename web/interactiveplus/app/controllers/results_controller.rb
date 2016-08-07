@@ -62,17 +62,7 @@ class ResultsController < ApplicationController
     @result.number_of_answers = answer_ids.length
     @result.number_of_free_answers = free_answers_question_id.length
     @result.link = params["random_link"]
-
-    free_answers_question_id.each do |key1, element|
-      element.each do |key, value|
-        @given_answer = GivenAnswer.new()
-        @given_answer.result_id = @result.id
-        @given_answer.question_id = key.to_i
-        @given_answer.free_answer = value
-
-        @given_answer.save
-      end
-    end
+    @result.total_number_of_correct_answers = number_of_correct_answers
 
     respond_to do |format|
         if @result.save

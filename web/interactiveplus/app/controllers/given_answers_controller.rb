@@ -46,14 +46,14 @@ class GivenAnswersController < ApplicationController
       if @given_answer.update(given_answer_params)
         if correctness.nil?
           if @given_answer.correct_answer
-            @result.number_of_correct_answers += 1
+            @result.total_number_of_correct_answers += 1
           end
         else
           if correctness != @given_answer.correct_answer
             if correctness && !@given_answer.correct_answer
-              @result.number_of_correct_answers -= 1
+              @result.total_number_of_correct_answers -= 1
             else
-              @result.number_of_correct_answers += 1
+              @result.total_number_of_correct_answers += 1
             end
           end
         end

@@ -17,6 +17,8 @@
 //= require bootstrap-sprockets
 //= require turbolinks
 //= require_tree .
+//= require Chart.bundle
+//= require chartkick
 $( document ).ready(function() {
  $('input[id^="question_type_single_answer_"]').on('click', function() {  
     console.log("Hello!");
