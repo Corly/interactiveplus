@@ -1,0 +1,5 @@
+<% @results.each do |result| %>
+	<li id="result-<%= result.id %>">
+	  <span class="name"><%= link_to result.link, "/result/#{result.link}", method: :get %></span>
+	</li>
+<% end %>

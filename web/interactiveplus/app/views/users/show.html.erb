@@ -8,13 +8,23 @@
 			</h1>
 		</section>
 	</aside>
-	<div class="col-md-8">
+	<div class="col-md-4">
 	    <% if @user.quizzes.any? %>
-	    	<h3>Quizzes (<%= @user.quizzes.count %>)</h3>
+	    	<h3>My Quizzes (<%= @user.quizzes.count %>)</h3>
 	      	<ol class="quizzes">
 	        	<%= render @quizzes %>
 	      	</ol>
 	      	<%= will_paginate @quizzes %>
 	    <% end %>
   	</div>
+	<div class="col-md-4">
+	    <% if @user.results.any? %>
+	    	<h3>My Results (<%= @user.results.count %>)</h3>
+	      	<ol class="results">
+	        	<%= render "result_stats" %>
+	      	</ol>
+	      	<%= will_paginate @results %>
+	    <% end %>
+  	</div>
+
 </div>

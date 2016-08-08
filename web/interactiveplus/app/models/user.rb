@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
     has_secure_password
     validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
     has_many :quizzes, dependent: :destroy
+    has_many :results
 
     class << self
         def digest(string)
