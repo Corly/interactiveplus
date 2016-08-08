@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">InteractivePlus</string>
+    <string name="label_enter_identifier">Enter quiz identifier</string>
+    <string name="start_quiz">Start Quiz!</string>
+</resources>
