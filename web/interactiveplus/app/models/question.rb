@@ -9,6 +9,8 @@ class Question < ActiveRecord::Base
 
     def as_json(options={})
     	{:content 		=> self.content,
+         :id => self.id,
+         :question_type => self.question_type,
          :answers   => self.answers}
     end
 end

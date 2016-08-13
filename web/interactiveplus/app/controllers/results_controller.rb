@@ -33,6 +33,7 @@ class ResultsController < ApplicationController
   # POST /results.json
   def create
     @result = Result.new(result_params)
+    puts result_params
 
     answer_ids = params["answer_ids"]
     free_answers_question_id = params["free_answers_question_id"]
