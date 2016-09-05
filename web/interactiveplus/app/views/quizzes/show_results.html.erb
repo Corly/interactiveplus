@@ -6,7 +6,7 @@
 				<%= @quiz.name %>
 			</h1>
 			<br />
-			<%= column_chart @all_results.group(:id).sum(:total_number_of_correct_answers) %>
+			<%= column_chart @all_results.group(:link).sum(:total_number_of_correct_answers) %>
 			<br />
 		</section>
 	</aside>

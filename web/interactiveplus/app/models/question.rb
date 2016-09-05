@@ -1,6 +1,7 @@
 class Question < ActiveRecord::Base
     belongs_to :quiz
     has_many :answers
+    has_one :given_answer
     accepts_nested_attributes_for :answers, allow_destroy: true
 
     def question_params

@@ -58,7 +58,7 @@ class QuizzesController < ApplicationController
   def update
     respond_to do |format|
       if @quiz.update(quiz_params)
-        format.html { redirect_to @quiz, notice: 'Quiz was successfully updated.' }
+        format.html { redirect_to current_user, notice: 'Quiz was successfully updated.' }
         format.json { render :show, status: :ok, location: @quiz }
       else
         format.html { render :edit }
@@ -71,7 +71,7 @@ class QuizzesController < ApplicationController
   # DELETE /quizzes/1.json
   def destroy
     @quiz.destroy
-    flash[:success] = "Micropost deleted"
+    flash[:success] = "Quiz deleted"
     redirect_to request.referrer || root_url
   end
 
