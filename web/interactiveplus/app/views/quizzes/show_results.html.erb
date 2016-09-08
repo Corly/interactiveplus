@@ -8,6 +8,53 @@
 			<br />
 			<%= column_chart @all_results.group(:link).sum(:total_number_of_correct_answers) %>
 			<br />
+			<div id="example">
+    <div class="demo-section k-content wide">
+        <div id="chart"></div>
+    </div>
+    <script>
+        function createChart() {
+            $("#chart").kendoChart({
+                title: {
+                    text: "Number of correct vs incorrect solves per questions"
+                },
+                legend: {
+                    position: "top"
+                },
+                seriesDefaults: {
+                    type: "column"
+                },
+                series: <%= @kendo_series.to_json.html_safe %>,
+                valueAxis: {
+                    labels: {
+                        format: "{0}"
+                    },
+                    line: {
+                        visible: false
+                    },
+                    axisCrossingValue: 0
+                },
+                categoryAxis: {
+                    categories: <%= @categories %>,
+                    line: {
+                        visible: false
+                    },
+                    labels: {
+                        padding: {top: 5}
+                    }
+                },
+                tooltip: {
+                    visible: true,
+                    format: "{0}",
+                    template: "#= series.name #: #= value #"
+                }
+            });
+        }
+
+        $(document).ready(createChart);
+        $(document).bind("kendo:skinChange", createChart);
+    </script>
+</div>
 		</section>
 	</aside>
 	<div class="col-md-3">

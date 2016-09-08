@@ -103,6 +103,43 @@ class QuizzesController < ApplicationController
       @user = User.find(@quiz.user_id)
       @all_results = @quiz.results
       @results = @quiz.results.paginate(page: params[:page])
+
+      q_to_nr_of_correct_answers = {}
+      @quiz.questions.each do |q|
+        if q.question_type == "choosing_answer"
+          nr = 0
+          q.answers.each do |a|
+            if a.answer_type == "correct"
+              nr = nr + 1
+            end
+          end
+
+          q_to_nr_of_correct_answers[q] = nr
+        end
+      end
+
+      @q_to_nr_of_correct_solves = []
+      @q_to_nr_of_incorrect_solves = []
+      @categories = []
+      @quiz.questions.each do |q|
+        if q.question_type == "choosing_answer"
+          counter = 0
+          @all_results.each do |r|
+            nr_of_correct_given_answers = GivenAnswer.where("result_id = ? AND question_id = ? AND correct_answer = ?", r.id, q.id, true).count
+            if nr_of_correct_given_answers == q_to_nr_of_correct_answers[q]
+              counter = counter + 1
+            end
+          end
+          @q_to_nr_of_correct_solves << counter
+          @q_to_nr_of_incorrect_solves << @all_results.count - counter
+          @categories << q.id
+        end
+      end
+
+
+      @kendo_series = []
+      @kendo_series << {name: "Correct", data:  @q_to_nr_of_correct_solves}
+      @kendo_series << {name: "Incorrect", data: @q_to_nr_of_incorrect_solves}
   end
 
   private
@@ -120,5 +157,5 @@ class QuizzesController < ApplicationController
     def quiz_params
       params.require(:quiz).permit(:name, questions_attributes: [ :id, :content, :question_type, :_destroy,
                                                                 answers_attributes: [:id, :content, :answer_type, :_destroy]])
-  end
+    end
 end

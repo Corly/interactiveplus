@@ -21,7 +21,7 @@
       <% counter = counter + 1 %>
   <% end %>
 
-  <% random_link = SecureRandom.base64[0,5] %>
+  <% random_link = SecureRandom.base64[0,5].gsub('/', 'a') %>
   <% user_id = current_user.nil? ? -1 : current_user.id %>
 
   <%= link_to "Submit answers", 'javascript:;', :onclick => "send_result('#{results_path()}', '#{@quiz.id}', '#{user_id}', '#{random_link}')", class: "btn btn-primary" %>

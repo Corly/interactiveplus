@@ -61,7 +61,7 @@ class ResultsController < ApplicationController
 
     @result.number_of_correct_answers = number_of_correct_answers
     @result.number_of_answers = answer_ids.length
-    @result.number_of_free_answers = free_answers_question_id.length
+    @result.number_of_free_answers = free_answers_question_id.nil? ? 0 : free_answers_question_id.length
     @result.link = params["random_link"]
     @result.total_number_of_correct_answers = number_of_correct_answers
 
@@ -69,29 +69,30 @@ class ResultsController < ApplicationController
         if @result.save
           number_of_correct_answers = 0
           answer_ids.each do |id|
-          answer = Answer.find(id.to_i)
-          @given_answer = GivenAnswer.new()
-          @given_answer.answer_id = id.to_i
-          @given_answer.result_id = @result.id
-          unless answer.answer_type.nil?
-            number_of_correct_answers += 1
-            @given_answer.correct_answer = true
-          else
-            @given_answer.correct_answer = false
-          end
-          @given_answer.save
-        end
-
-        free_answers_question_id.each do |key1, element|
-          element.each do |key, value|
+            answer = Answer.find(id.to_i)
             @given_answer = GivenAnswer.new()
+            @given_answer.answer_id = id.to_i
+            @given_answer.question_id = answer.question_id
             @given_answer.result_id = @result.id
-            @given_answer.question_id = key.to_i
-            @given_answer.free_answer = value
-
+            unless answer.answer_type.nil?
+              number_of_correct_answers += 1
+              @given_answer.correct_answer = true
+            else
+              @given_answer.correct_answer = false
+            end
             @given_answer.save
           end
-        end
+
+          free_answers_question_id.each do |key1, element|
+            element.each do |key, value|
+              @given_answer = GivenAnswer.new()
+              @given_answer.result_id = @result.id
+              @given_answer.question_id = key.to_i
+              @given_answer.free_answer = value
+
+              @given_answer.save
+            end
+          end
 
         format.html { redirect_to @result, notice: 'Result was successfully created.' }
         format.json { render :show, status: :created, location: @result }
