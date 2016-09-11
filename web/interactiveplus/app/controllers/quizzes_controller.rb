@@ -80,7 +80,7 @@ class QuizzesController < ApplicationController
     @user = User.find(@quiz.user_id)
 
     if @quiz.publish_string.nil?
-      url = SecureRandom.base64[0,5]
+      url = SecureRandom.base64[0,5].gsub('/', 'a')
       @quiz.update(:publish_string => url)
     end
   end
